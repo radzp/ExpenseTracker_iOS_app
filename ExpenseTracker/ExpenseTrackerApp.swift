@@ -24,18 +24,30 @@ import SwiftUI
 //}
 
 
-
 @main
 struct ExpenseTrackerApp: App {
-    @StateObject private var chartValue = ChartValue()
-    @StateObject private var transactionListVM = TransactionListViewModel()
-    
+    let persistenceController = PersistenceController.shared
+
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(chartValue)
-                .environmentObject(transactionListVM)
-                .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+            .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                      .environmentObject(TransactionListViewModel())
         }
     }
 }
+//
+//@main
+//struct ExpenseTrackerApp: App {
+//    @StateObject private var chartValue = ChartValue()
+//    @StateObject private var transactionListVM = TransactionListViewModel()
+//    
+//    var body: some Scene {
+//        WindowGroup {
+//            ContentView()
+//                .environmentObject(chartValue)
+//                .environmentObject(transactionListVM)
+//                .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+//        }
+//    }
+//}
